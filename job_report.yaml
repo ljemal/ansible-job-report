@@ -2,7 +2,7 @@
 
 # Using Ansible server's facts as the authoritative source for date and time
 - name: PLAY 1 Gather facts for local Ansible server to get date and time
-  hosts: 18.118.17.247
+  hosts: localhost
   connection: local
   gather_facts: yes
 
