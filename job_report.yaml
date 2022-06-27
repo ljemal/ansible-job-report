@@ -38,7 +38,7 @@
       run_once: yes
       delegate_to: localhost
       file:
-        path: "./reports"
+        path: "/home/ec2-user/ansible-automation-platform-setup-bundle-2.2.0-6.1/reports"
         state: directory
     
     # See README.md for an explanation of what is going on here.
