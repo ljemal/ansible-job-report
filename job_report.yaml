@@ -86,7 +86,7 @@
       set_fact:
         date_str: "{{ hostvars['localhost']['ansible_date_time']['date'] }}_{{ hostvars['localhost']['ansible_date_time']['time'] | replace(':','-') }}"
         date_str_pretty: "{{ hostvars['localhost']['ansible_date_time']['date'] }} {{ hostvars['localhost']['ansible_date_time']['time'] }}"
-        kernels_list: '{{ hostvars | *.ansible_kernel | unique | sort }}'
+        kernels_list: '{{ hostvars | '*.ansible_kernel'| unique | sort }}'
         success_list: '{{ hostvars | dict2items | json_query(success_query) }}'
         failed_list: '{{ hostvars | dict2items | json_query(failed_query) }}'
         missing_list: '{{ hostvars | dict2items | json_query(missing_query) }}'
