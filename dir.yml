@@ -1,0 +1,11 @@
+---
+- name: test
+  hosts: all
+  become: true
+  tasks:
+      - name: Create reports/ folder to save reports
+        run_once: yes
+          delegate_to: localhost
+          file:
+          path: "/home/ec2-user/ansible-automation-platform-setup-bundle-2.2.0-6.1/reports"
+          state: directory
