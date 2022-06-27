@@ -2,7 +2,7 @@
 
 # Using Ansible server's facts as the authoritative source for date and time
 - name: PLAY 1 Gather facts for local Ansible server to get date and time
-  hosts: localhost
+  hosts: 18.118.17.247
   connection: local
   gather_facts: yes
 
@@ -36,7 +36,7 @@
     
     - name: Create reports/ folder to save reports
       run_once: yes
-      delegate_to: localhost
+      delegate_to: 18.118.17.247
       file:
         path: "/home/ec2-user/ansible-automation-platform-setup-bundle-2.2.0-6.1/reports"
         state: directory
@@ -78,14 +78,14 @@
         job_success: True
 
     # Saving curated lists of hosts as localhost facts, to make the Jinja loops easier to read in the template. 
-    # To use: hostvars['localhost']['success_list'] , etc
+    # To use: hostvars['18.118.17.247']['success_list'] , etc
     - name: Save facts to Ansible server for kernel list, date/time, and success/failed/missing hosts
-      delegate_to: localhost
+      delegate_to: 18.118.17.247
       delegate_facts: True
       run_once: yes
       set_fact:
-        date_str: "{{ hostvars['localhost']['ansible_date_time']['date'] }}_{{ hostvars['localhost']['ansible_date_time']['time'] | replace(':','-') }}"
-        date_str_pretty: "{{ hostvars['localhost']['ansible_date_time']['date'] }} {{ hostvars['localhost']['ansible_date_time']['time'] }}"
+        date_str: "{{ hostvars['18.118.17.247']['ansible_date_time']['date'] }}_{{ hostvars['18.118.17.247']['ansible_date_time']['time'] | replace(':','-') }}"
+        date_str_pretty: "{{ hostvars['18.118.17.247']['ansible_date_time']['date'] }} {{ hostvars['18.118.17.247']['ansible_date_time']['time'] }}"
         kernels_list: '{{ hostvars | json_query(kernel_query) | unique | sort }}'
         success_list: '{{ hostvars | dict2items | json_query(success_query) }}'
         failed_list: '{{ hostvars | dict2items | json_query(failed_query) }}'
@@ -97,23 +97,23 @@
         missing_query: "[?value.missing==`true`].key"
 
     - name: Debug variables (-v)
-      delegate_to: localhost
+      delegate_to: 18.118.17.247
       run_once: yes
       debug:
         msg: "{{ item }}"
         verbosity: 1
       loop:
-        - "Success: {{ hostvars['localhost']['success_list'] }}"
-        - "Failed: {{ hostvars['localhost']['failed_list'] }}"
-        - "Missing: {{ hostvars['localhost']['missing_list'] }}"
-        - "Kernels: {{ hostvars['localhost']['kernels_list'] }}"
+        - "Success: {{ hostvars['18.118.17.247']['success_list'] }}"
+        - "Failed: {{ hostvars['18.118.17.247']['failed_list'] }}"
+        - "Missing: {{ hostvars['18.118.17.247']['missing_list'] }}"
+        - "Kernels: {{ hostvars['18.118.17.247']['kernels_list'] }}"
 
     - name: Generate job report under ./reports/job_report_{{ hostvars['localhost']['date_str'] }}.html
-      delegate_to: localhost
+      delegate_to: 18.118.17.247
       delegate_facts: True
       run_once: yes
       template:
         src: job_report_master.j2
-        dest: "/home/ec2-user/ansible-automation-platform-setup-bundle-2.2.0-6.1/reports/job_report_{{ hostvars['localhost']['date_str'] }}.html"
+        dest: "/home/ec2-user/ansible-automation-platform-setup-bundle-2.2.0-6.1/reports/job_report_{{ hostvars['18.118.17.247']['date_str'] }}.html"
 
   
