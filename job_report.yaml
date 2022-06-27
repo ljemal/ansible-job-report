@@ -114,6 +114,6 @@
       run_once: yes
       template:
         src: job_report_master.j2
-        dest: "reports/job_report_{{ hostvars['localhost']['date_str'] }}.html"
+        dest: "/home/ec2-user/ansible-automation-platform-setup-bundle-2.2.0-6.1/reports/job_report_{{ hostvars['localhost']['date_str'] }}.html"
 
   
