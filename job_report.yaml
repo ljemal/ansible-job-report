@@ -38,7 +38,7 @@
       run_once: yes
       delegate_to: localhost
       file:
-        path: "/home/ec2-user/ansible-automation-platform-setup-bundle-2.2.0-6.1/reports"
+        path: "/home/ec2-user/reports"
         state: directory
     
     # See README.md for an explanation of what is going on here.
@@ -109,11 +109,11 @@
         - "Kernels: {{ hostvars['localhost']['kernels_list'] }}"
 
     - name: Generate job report under ./reports/job_report_{{ hostvars['localhost']['date_str'] }}.html
-      delegate_to: 18.118.17.247
+      delegate_to: localhost
       delegate_facts: True
       run_once: yes
       template:
         src: job_report_master.j2
-        dest: "/home/ec2-user/ansible-automation-platform-setup-bundle-2.2.0-6.1/reports/job_report_{{ hostvars['18.118.17.247']['date_str'] }}.html"
+        dest: "/home/ec2-user/reports/job_report_{{ hostvars['18.118.17.247']['date_str'] }}.html"
 
   
