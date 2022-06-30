@@ -114,6 +114,6 @@
       run_once: yes
       template:
         src: job_report_master.j2
-        dest: "/home/ec2-user/reports/job_report_{{ hostvars['18.118.17.247']['date_str'] }}.html"
+        dest: "/home/ec2-user/reports/job_report_{{ hostvars['localhost']['date_str'] }}.html"
 
   
